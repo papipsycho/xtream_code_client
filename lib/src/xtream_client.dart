@@ -165,18 +165,31 @@ class XtreamCodeClient {
     final response = await _http.get(Uri.parse('$_baseUrl&action=$action'));
 
     if (response.statusCode == 200) {
+      print('seriesItems response.body:');
       print(response.body);
       final parsed = json.decode(response.body);
-      return (parsed is List ? parsed : <dynamic>[])
-          .cast<Map<String, dynamic>>()
-          .map<XTremeCodeSeriesItem>(XTremeCodeSeriesItem.fromJson)
-          .toList();
+      print('seriesItems parsed:');
+      print(parsed);
+      List<XTremeCodeSeriesItem> result = [];
+      if (parsed is List) {
+        for (var i = 0; i < parsed.length; i++) {
+          try {
+            final item = XTremeCodeSeriesItem.fromJson(parsed[i] as Map<String, dynamic>);
+            result.add(item);
+          } catch (e, stack) {
+            print('Error parsing series item at index $i: $e');
+            print(stack);
+          }
+        }
+      }
+      print('seriesItems result length: \\${result.length}');
+      return result;
     } else {
       throw XTreamCodeClientException(
         '''
         Failed to retrieve Series from action $action.
         Server responded with the error code ${response.statusCode}.
-        ''',
+        '''
       );
     }
   }
