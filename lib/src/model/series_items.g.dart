@@ -25,7 +25,7 @@ XTremeCodeSeriesItem _$XTremeCodeSeriesItemFromJson(
       rating: dynamicToDoubleConverter(json['rating']),
       rating5based: dynamicToDoubleConverter(json['rating_5based']),
       backdropPath: (json['backdrop_path'] as List<dynamic>?)
-          ?.map((e) => e as String)
+          ?.map((e) => e as String?)
           .toList(),
       youtubeTrailer: json['youtube_trailer'] as String?,
       episodeRunTime: dynamicToIntConverter(json['episode_run_time']),
