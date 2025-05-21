@@ -96,7 +96,7 @@ class XTremeCodeSeriesItem {
   final double? rating5based;
 
   /// The backdrop image paths of the series item.
-  @JsonKey(name: 'backdrop_path')
+  @JsonKey(name: 'backdrop_path', fromJson: backdropPathFromJson)
   final List<String>? backdropPath;
 
   /// The YouTube trailer URL of the series item.
@@ -117,4 +117,12 @@ class XTremeCodeSeriesItem {
 
   /// Converts this [XTremeCodeSeriesItem] instance to a JSON map.
   Map<String, dynamic> toJson() => _$XTremeCodeSeriesItemToJson(this);
+}
+
+dynamic backdropPathFromJson(dynamic json) {
+  if (json == null) return null;
+  if (json is List) {
+    return json.whereType<String>().toList();
+  }
+  return null;
 }
