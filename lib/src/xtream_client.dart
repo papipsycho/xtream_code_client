@@ -165,6 +165,7 @@ class XtreamCodeClient {
     final response = await _http.get(Uri.parse('$_baseUrl&action=$action'));
 
     if (response.statusCode == 200) {
+      print(response.body);
       final parsed = json.decode(response.body);
       return (parsed is List ? parsed : <dynamic>[])
           .cast<Map<String, dynamic>>()
