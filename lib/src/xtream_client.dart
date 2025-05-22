@@ -165,11 +165,7 @@ class XtreamCodeClient {
     final response = await _http.get(Uri.parse('$_baseUrl&action=$action'));
 
     if (response.statusCode == 200) {
-      print('seriesItems response.body:');
-      print(response.body);
       final parsed = json.decode(response.body);
-      print('seriesItems parsed:');
-      print(parsed);
       List<XTremeCodeSeriesItem> result = [];
       if (parsed is List) {
         for (var i = 0; i < parsed.length; i++) {
@@ -182,7 +178,6 @@ class XtreamCodeClient {
           }
         }
       }
-      print('seriesItems result length: \\${result.length}');
       return result;
     } else {
       throw XTreamCodeClientException(

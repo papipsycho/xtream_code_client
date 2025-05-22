@@ -42,8 +42,6 @@ class XTremeCodeSeriesItem {
 
   /// Creates a [XTremeCodeSeriesItem] instance from a JSON map.
   factory XTremeCodeSeriesItem.fromJson(Map<String, dynamic> json) {
-    print('XTremeCodeSeriesItem.fromJson called with:');
-    print(json);
     return _$XTremeCodeSeriesItemFromJson(json);
   }
 
@@ -123,8 +121,6 @@ class XTremeCodeSeriesItem {
 }
 
 dynamic backdropPathFromJson(dynamic json) {
-  print('backdrop_path raw value:');
-  print(json);
   if (json == null) return null;
   if (json is List) {
     return json
