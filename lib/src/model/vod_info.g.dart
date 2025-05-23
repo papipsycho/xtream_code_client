@@ -50,7 +50,7 @@ XTremeCodeInfoVod _$XTremeCodeInfoVodFromJson(Map<String, dynamic> json) =>
       duration: json['duration'] as String?,
       bitrate: dynamicToIntConverter(json['bitrate']),
       rating: dynamicToDoubleConverter(json['rating']),
-      releasedate: json['releasedate'] == null
+      releasedate: json['releasedate'] == null || json['releasedate'] == ''
           ? null
           : DateTime.parse(json['releasedate'] as String),
       subtitles: json['subtitles'] as List<dynamic>?,
