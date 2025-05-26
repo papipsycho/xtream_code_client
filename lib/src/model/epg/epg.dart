@@ -337,7 +337,7 @@ class Title {
 
   factory Title.fromXmlElement(XmlElement element) {
     return Title(
-      value: element.text,
+      value: fixUtf8(element.text),
       lang: element.getAttribute('lang'),
     );
   }
@@ -354,7 +354,7 @@ class SubTitle {
 
   factory SubTitle.fromXmlElement(XmlElement element) {
     return SubTitle(
-      value: element.text,
+      value: fixUtf8(element.text),
       lang: element.getAttribute('lang'),
     );
   }
@@ -371,7 +371,7 @@ class Desc {
 
   factory Desc.fromXmlElement(XmlElement element) {
     return Desc(
-      value: element.text,
+      value: fixUtf8(element.text),
       lang: element.getAttribute('lang'),
     );
   }
@@ -776,4 +776,13 @@ class Image {
   final String? orient;
   final String? system;
   final String value;
+}
+
+String fixUtf8(String input) {
+  try {
+    final bytes = input.codeUnits;
+    return String.fromCharCodes(bytes);
+  } catch (_) {
+    return input;
+  }
 }

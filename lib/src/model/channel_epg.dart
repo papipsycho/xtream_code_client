@@ -44,11 +44,11 @@ class XTremeCodeEpgListing {
       XTremeCodeEpgListing(
         id: dynamicToIntConverter(json['id']),
         epgId: dynamicToIntConverter(json['epg_id']),
-        title: fixUtf8(json['title'] as String?),
+        title: json['title'] as String?,
         lang: json['lang'] as String?,
         start: dateTimeFromString(json['start'] as String?),
         end: dateTimeFromEpochSeconds(json['end']),
-        description: fixUtf8(json['description'] as String?),
+        description: json['description'] as String?,
         channelId: json['channel_id'] as String?,
         startTimestamp: dateTimeFromEpochSeconds(json['start_timestamp']),
         stopTimestamp: dateTimeFromEpochSeconds(json['stop_timestamp']),
@@ -97,15 +97,4 @@ class XTremeCodeEpgListing {
 
   /// Converts this instance into a JSON object.
   Map<String, dynamic> toJson() => _$XTremeCodeEpgListingToJson(this);
-}
-
-String? fixUtf8(String? input) {
-  if (input == null) return null;
-  try {
-    // On tente de décoder puis réencoder pour forcer l'UTF-8
-    final bytes = input.codeUnits;
-    return String.fromCharCodes(bytes);
-  } catch (_) {
-    return input;
-  }
 }
