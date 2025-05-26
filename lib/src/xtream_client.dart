@@ -270,7 +270,8 @@ class XtreamCodeClient {
       // Détection de l'encodage
       String? extractXmlEncoding(List<int> bytes) {
         final head = String.fromCharCodes(bytes.take(200).toList());
-        final match = RegExp(r'encoding=["\']([^"\']+)["\']').firstMatch(head);
+        final match = RegExp(r'encoding="([^"]+)"').firstMatch(head) ??
+                      RegExp(r"encoding='([^']+)'").firstMatch(head);
         return match != null ? match.group(1) : null;
       }
       final encodingName = extractXmlEncoding(response.bodyBytes)?.toLowerCase();
