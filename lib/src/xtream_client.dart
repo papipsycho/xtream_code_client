@@ -267,12 +267,31 @@ class XtreamCodeClient {
     final response = await _http.get(uri);
 
     if (response.statusCode == 200) {
-      final xmlString = response.body;
+      // Détection de l'encodage
+      String? extractXmlEncoding(List<int> bytes) {
+        final head = String.fromCharCodes(bytes.take(200).toList());
+        final match = RegExp(r'encoding=["\']([^"\']+)["\']').firstMatch(head);
+        return match != null ? match.group(1) : null;
+      }
+      final encodingName = extractXmlEncoding(response.bodyBytes)?.toLowerCase();
+      Encoding encoding;
+      switch (encodingName) {
+        case 'utf-8':
+          encoding = utf8;
+          break;
+        case 'iso-8859-1':
+        case 'latin1':
+          encoding = latin1;
+          break;
+        default:
+          encoding = utf8;
+      }
+      final xmlString = encoding.decode(response.bodyBytes);
       final parser = EpgParser();
       return parser.parse(xmlString);
     } else {
       throw XTreamCodeClientException(
-        'Failed to fetch XMLTV data. Server responded with status code ${response.statusCode}.',
+        'Failed to fetch XMLTV data. Server responded with status code [31m${response.statusCode}[0m.',
       );
     }
   }
