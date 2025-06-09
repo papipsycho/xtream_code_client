@@ -88,4 +88,10 @@ class XTremeCodeVodItem {
 
   /// Converts this instance into a JSON object.
   Map<String, dynamic> toJson() => _$XTremeCodeVodItemToJson(this);
+
+  /// Nom normalisé pour la recherche.
+  String get searchName {
+    final value = title?.isNotEmpty == true ? title : name;
+    return value == null ? '' : normalize(value);
+  }
 }

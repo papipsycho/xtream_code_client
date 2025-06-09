@@ -84,4 +84,7 @@ class XTremeCodeLiveStreamItem {
 
   /// Converts this instance into a JSON object.
   Map<String, dynamic> toJson() => _$XTremeCodeLiveStreamItemToJson(this);
+
+  /// Nom normalisé pour la recherche.
+  String get searchName => name == null ? '' : normalize(name!);
 }

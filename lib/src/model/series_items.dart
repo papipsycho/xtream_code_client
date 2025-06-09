@@ -118,6 +118,12 @@ class XTremeCodeSeriesItem {
 
   /// Converts this [XTremeCodeSeriesItem] instance to a JSON map.
   Map<String, dynamic> toJson() => _$XTremeCodeSeriesItemToJson(this);
+
+  /// Nom normalisé pour la recherche.
+  String get searchName {
+    final value = title?.isNotEmpty == true ? title : name;
+    return value == null ? '' : normalize(value);
+  }
 }
 
 dynamic backdropPathFromJson(dynamic json) {

@@ -72,3 +72,9 @@ double? dynamicToDoubleConverter(dynamic json) {
   }
   return null;
 }
+
+String normalize(String input) {
+  return input
+      .toLowerCase()
+      .replaceAll(RegExp(r'[^a-zA-Z0-9]'), '');
+}
